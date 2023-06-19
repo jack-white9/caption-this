@@ -1,4 +1,5 @@
 import { useState, useRef } from "react";
+import axios from "axios";
 import "./DragDropFile.css";
 
 export const DragDropFile = () => {
@@ -23,15 +24,33 @@ export const DragDropFile = () => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      // handleFiles(e.dataTransfer.files);
+    if (e.dataTransfer.files) {
+      handleFileUpload(e.target.files[0]);
     }
   };
 
   const handleChange = (e) => {
     e.preventDefault();
-    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
-      // handleFiles(e.dataTransfer.files);
+    if (e.target.files) {
+      handleFileUpload(e.target.files[0]);
+    }
+  };
+
+  const handleFileUpload = async (file) => {
+    // TODO: Validate files to filter out non-image files
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+      const response = await fetch("http://localhost:8000/uploadfile/", {
+        method: "POST",
+        body: formData,
+      });
+      const responseText = await response.json();
+      console.log(responseText);
+      return response;
+    } catch (error) {
+      console.error("Request failed with error:", error);
     }
   };
 
@@ -45,13 +64,12 @@ export const DragDropFile = () => {
         ref={inputRef}
         type="file"
         id="input-file-upload"
-        multiple={true}
         onChange={handleChange}
       />
       <label
         id="label-file-upload"
         htmlFor="input-file-upload"
-        className={isDragActive && "drag-active"}
+        className={isDragActive ? "drag-active" : ""}
       >
         <div>
           <p>Drag and drop your file here or</p>
