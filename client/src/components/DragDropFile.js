@@ -42,7 +42,7 @@ export const DragDropFile = () => {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://localhost:8000/uploadfile/", {
+      const response = await fetch("http://localhost:8000/generate_caption/", {
         method: "POST",
         body: formData,
       });
