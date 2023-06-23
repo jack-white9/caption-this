@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import "./DragDropFile.css";
+import "./FileUpload.css";
 
 export const DragDropFile = ({ handleFileUpload }) => {
   const [isDragActive, setIsDragActive] = useState(false);

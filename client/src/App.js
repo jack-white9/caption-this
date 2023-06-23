@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { DragDropFile } from "./components/DragDropFile";
+import { DragDropFile } from "./components/FileUpload/FileUpload";
+import { LoadingBar } from "./components/LoadingBar/LoadingBar";
 import "./App.css";
 
 export const App = () => {
@@ -29,6 +30,7 @@ export const App = () => {
     <div className={`page-container ${isLoading ? "loading-container" : ""}`}>
       <h1 className="page-header">Give me a caption for...</h1>
       <DragDropFile handleFileUpload={handleFileUpload} />
+      <LoadingBar isLoading={isLoading} />
     </div>
   );
 };
