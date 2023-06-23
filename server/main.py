@@ -1,5 +1,4 @@
 from fastapi import FastAPI, File, UploadFile
-from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from classes.ImageCaptioningModel import ImageCaptioningModel
 from classes.LargeLanguageModel import LargeLanguageModel

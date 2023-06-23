@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
-import axios from "axios";
 import "./DragDropFile.css";
 
-export const DragDropFile = () => {
+export const DragDropFile = ({ handleFileUpload }) => {
   const [isDragActive, setIsDragActive] = useState(false);
   const inputRef = useRef(null);
 
@@ -33,24 +32,6 @@ export const DragDropFile = () => {
     e.preventDefault();
     if (e.target.files) {
       handleFileUpload(e.target.files[0]);
-    }
-  };
-
-  const handleFileUpload = async (file) => {
-    // TODO: Validate files to filter out non-image files
-    const formData = new FormData();
-    formData.append("file", file);
-
-    try {
-      const response = await fetch("http://localhost:8000/generate_caption/", {
-        method: "POST",
-        body: formData,
-      });
-      const responseText = await response.json();
-      console.log(responseText);
-      return response;
-    } catch (error) {
-      console.error("Request failed with error:", error);
     }
   };
 
