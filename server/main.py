@@ -1,7 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
+from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from classes.ImageCaptioningModel import ImageCaptioningModel
 from classes.LargeLanguageModel import LargeLanguageModel
+from PIL import Image
+import io
 
 
 app = FastAPI()
@@ -20,14 +23,16 @@ async def health_check():
     return {"message": "Health check status: OK"}
 
 
-# TODO: how will we take an image as a parameter?
-@app.get("/generate_caption")
-async def generate_caption(image):
+@app.post("/generate_caption/")
+async def create_upload_file(file: UploadFile = File(...)):
+    file.filename = 'test.jpeg'
+    contents = await file.read()
+    image = Image.open(io.BytesIO(contents))
     image_description = ImageCaptioningModel().generate_image_description(image)
     caption = LargeLanguageModel().generate_caption(image_description)
-    return {"response": caption}
+    return {"image_description": caption}
 
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
