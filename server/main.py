@@ -24,7 +24,6 @@ async def health_check():
 
 @app.post("/generate_caption/")
 async def create_upload_file(file: UploadFile = File(...)):
-    file.filename = 'test.jpeg'
     contents = await file.read()
     image = Image.open(io.BytesIO(contents))
     image_description = ImageCaptioningModel().generate_image_description(image)

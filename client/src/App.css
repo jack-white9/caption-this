@@ -12,13 +12,13 @@
   flex-direction: column;
   font-family: "Poppins", sans-serif;
 }
-
+/* 
 .loading-container {
   background-color: #f2c6de;
   -webkit-transition: background-color 200ms linear;
   -ms-transition: background-color 200ms linear;
   transition: background-color 200ms linear;
-}
+} */
 
 .page-header {
   font-weight: normal;

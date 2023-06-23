@@ -5,6 +5,7 @@ import "./App.css";
 
 export const App = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [imageCaption, setImageCaption] = useState(null);
 
   const handleFileUpload = async (file) => {
     // TODO: Validate files to filter out non-image files
@@ -19,8 +20,7 @@ export const App = () => {
       });
       const responseText = await response.json();
       setIsLoading(false);
-      console.log(responseText);
-      return response;
+      setImageCaption(responseText.image_description);
     } catch (error) {
       console.error("Request failed with error:", error);
     }
@@ -29,7 +29,11 @@ export const App = () => {
   return (
     <div className={`page-container ${isLoading ? "loading-container" : ""}`}>
       <h1 className="page-header">Give me a caption for...</h1>
-      <DragDropFile handleFileUpload={handleFileUpload} />
+      {imageCaption === null ? (
+        <DragDropFile handleFileUpload={handleFileUpload} />
+      ) : (
+        <p>{imageCaption}</p>
+      )}
       <LoadingBar isLoading={isLoading} />
     </div>
   );
