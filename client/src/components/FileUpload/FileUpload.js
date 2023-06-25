@@ -24,7 +24,7 @@ export const DragDropFile = ({ handleFileUpload }) => {
     e.stopPropagation();
     setIsDragActive(false);
     if (e.dataTransfer.files) {
-      handleFileUpload(e.target.files[0]);
+      handleFileUpload(e.dataTransfer.files[0]);
     }
   };
 

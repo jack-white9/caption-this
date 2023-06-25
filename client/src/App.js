@@ -6,6 +6,7 @@ import "./App.css";
 export const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [imageCaption, setImageCaption] = useState(null);
+  const hasFileBeenUploaded = isLoading || imageCaption !== null;
 
   const handleFileUpload = async (file) => {
     // TODO: Validate files to filter out non-image files
@@ -29,11 +30,11 @@ export const App = () => {
   return (
     <div className={`page-container ${isLoading ? "loading-container" : ""}`}>
       <h1 className="page-header">Give me a caption for...</h1>
-      {imageCaption === null ? (
+      {!hasFileBeenUploaded && (
         <DragDropFile handleFileUpload={handleFileUpload} />
-      ) : (
-        <p>{imageCaption}</p>
       )}
+
+      {hasFileBeenUploaded && <p>{imageCaption}</p>}
       <LoadingBar isLoading={isLoading} />
     </div>
   );
