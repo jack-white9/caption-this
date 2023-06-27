@@ -28,6 +28,7 @@ To run locally, clone the project repository use the following installation step
 ## Roadmap
 
 - [x] Create localhost web app
+- [ ] Investigate moving to React Server Components
 - [ ] Migrate app to AWS
 - [ ] Upgrade frontend to TypeScript
 - [ ] Uplift UI
