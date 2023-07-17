@@ -16,7 +16,7 @@ To run locally, clone the project repository use the following installation step
 1. Change directory to server: `cd server`
 2. Install project dependencies: `pip install -r requirements.txt`
 3. Add OpenAI API key: `export OPENAI_API_KEY='<insert api key>'`
-4. Start the FastAPI server: `python main.py`
+4. Start the FastAPI server: `uvicorn app.main:app --host 0.0.0.0  --port 8000 --reload`
 
 ### Client
 
@@ -28,7 +28,6 @@ To run locally, clone the project repository use the following installation step
 ## Roadmap
 
 - [x] Create localhost web app
-- [ ] Investigate moving to React Server Components
 - [ ] Migrate app to AWS
 - [ ] Upgrade frontend to TypeScript
 - [ ] Uplift UI
