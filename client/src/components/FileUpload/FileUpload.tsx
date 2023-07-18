@@ -1,15 +1,20 @@
-import { useState, useRef } from "react";
+import { React, useState, useRef } from "react";
 import "./FileUpload.css";
 
-export const DragDropFile = ({ handleFileUpload }) => {
+interface TFileUploadProps {
+  handleFileUpload: (file: File) => Promise<void>;
+}
+
+export const FileUpload = ({ handleFileUpload }: TFileUploadProps) => {
   const [isDragActive, setIsDragActive] = useState(false);
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLDivElement>(null);
 
   const onButtonClick = () => {
+    if (!inputRef?.current) return;
     inputRef.current.click();
   };
 
-  const handleDrag = (e) => {
+  const handleDrag = (e: DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     if (e.type === "dragover" || e.type === "dragenter") {
@@ -19,19 +24,20 @@ export const DragDropFile = ({ handleFileUpload }) => {
     }
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
     setIsDragActive(false);
-    if (e.dataTransfer.files) {
+    if (e?.dataTransfer?.files) {
       handleFileUpload(e.dataTransfer.files[0]);
     }
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: DragEvent) => {
     e.preventDefault();
-    if (e.target.files) {
-      handleFileUpload(e.target.files[0]);
+    const file = (e.target as HTMLInputElement).files;
+    if (file) {
+      handleFileUpload(file[0]);
     }
   };
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { DragDropFile } from "./components/FileUpload/FileUpload";
+import { FileUpload } from "./components/FileUpload/FileUpload";
 import { LoadingBar } from "./components/LoadingBar/LoadingBar";
 import "./App.css";
 
@@ -32,7 +32,7 @@ export const App = () => {
     <div className={`page-container ${isLoading ? "loading-container" : ""}`}>
       <h1 className="page-header">Give me a caption for...</h1>
       {!hasFileBeenUploaded && (
-        <DragDropFile handleFileUpload={handleFileUpload} />
+        <FileUpload handleFileUpload={handleFileUpload} />
       )}
 
       {hasFileBeenUploaded && <p>{imageCaption}</p>}
