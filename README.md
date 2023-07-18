@@ -28,6 +28,7 @@ To run locally, clone the project repository use the following installation step
 ## Roadmap
 
 - [x] Create localhost web app
-- [ ] Migrate app to AWS
-- [ ] Upgrade frontend to TypeScript
+- [x] Migrate app to AWS
+- [x] Upgrade frontend to TypeScript
+- [x] Add CI/CD pipeline
 - [ ] Uplift UI

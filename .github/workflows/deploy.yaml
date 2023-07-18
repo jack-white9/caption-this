@@ -1,0 +1,28 @@
+name: Deploy to AWS Elastic Beanstalk
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #   - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v2
+
+      - name: Generate repository zip file
+        run: zip -r deploy.zip api -x '*/__pycache__/*' '*/.env'
+
+      - name: Deploy zip to AWS Elastic Beanstalk
+        uses: einaregilsson/beanstalk-deploy@v21
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: caption-this-server
+          environment_name: caption-this-server-dev
+          version_label: ${{ github.run_number }}
+          region: ap-southeast-2
+          deployment_package: deploy.zip
