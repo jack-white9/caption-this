@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { DragDropFile } from "./components/FileUpload/FileUpload";
 import { LoadingBar } from "./components/LoadingBar/LoadingBar";
@@ -8,7 +9,7 @@ export const App = () => {
   const [imageCaption, setImageCaption] = useState(null);
   const hasFileBeenUploaded = isLoading || imageCaption !== null;
 
-  const handleFileUpload = async (file) => {
+  const handleFileUpload = async (file: File) => {
     // TODO: Validate files to filter out non-image files
     const formData = new FormData();
     formData.append("file", file);
